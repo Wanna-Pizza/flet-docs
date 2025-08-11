@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Guide: Adding User Extensions to Flet</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #16a085; }
+        code { 
+            background: #f4f4f4; 
+            padding: 2px 4px; 
+            border-radius: 3px; 
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+        pre {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            overflow-x: auto;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        .toc {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .toc ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .note {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        .warning {
+            background: #fdf2e9;
+            border-left: 4px solid #e67e22;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Complete Guide: Adding User Extensions to Flet</h1>
+    
+    <p>This comprehensive guide will walk you through the process of adding custom user extensions to your Flet applications. Perfect for beginners who want to extend Flet's functionality with community-created widgets and components.</p>
+
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#prerequisites">Prerequisites</a></li>
+            <li><a href="#step-1-install-uv-package-manager">Step 1: Install UV Package Manager</a></li>
+            <li><a href="#step-2-create-virtual-environment">Step 2: Create Virtual Environment</a></li>
+            <li><a href="#step-3-install-flet">Step 3: Install Flet</a></li>
+            <li><a href="#step-4-create-new-project-optional">Step 4: Create New Project (Optional)</a></li>
+            <li><a href="#step-5-project-setup">Step 5: Project Setup</a></li>
+            <li><a href="#step-6-adding-extensions">Step 6: Adding Extensions</a></li>
+            <li><a href="#step-7-building-and-running">Step 7: Building and Running</a></li>
+            <li><a href="#examples">Examples</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+        </ul>
+    </div>
+
+    <h2 id="prerequisites">Prerequisites</h2>
+    
+    <p>Before starting, make sure you have:</p>
+    <ul>
+        <li>Python 3.8 or higher installed</li>
+        <li>Terminal/Command Prompt access</li>
+        <li>Basic familiarity with command line operations</li>
+    </ul>
+
+    <h2 id="step-1-install-uv-package-manager">Step 1: Install UV Package Manager</h2>
+    
+    <p>UV is a fast Python package manager that we'll use for dependency management.</p>
+
+    <h3>Install UV globally:</h3>
+    
+    <pre><code>pip install uv</code></pre>
+    
+    <div class="note">
+        <strong>What this does:</strong> Installs the UV package manager globally on your system, making it available from any directory.
+    </div>
+
+    <h2 id="step-2-create-virtual-environment">Step 2: Create Virtual Environment</h2>
+    
+    <p>A virtual environment keeps your project dependencies isolated from your system Python.</p>
+
+    <h3>Create virtual environment:</h3>
+    
+    <pre><code>uv venv</code></pre>
+
+    <h3>Activate the virtual environment:</h3>
+    
+    <p><strong>For macOS/Linux:</strong></p>
+    <pre><code>source .venv/bin/activate</code></pre>
+    
+    <p><strong>For Windows:</strong></p>
+    <pre><code>.venv\Scripts\activate</code></pre>
+    
+    <div class="note">
+        <p><strong>What this does:</strong></p>
+        <ul>
+            <li>Creates a new virtual environment in the <code>.venv</code> folder</li>
+            <li>Activates it so all Python packages are installed in isolation</li>
+        </ul>
+        <p><strong>How to know it's active:</strong> You'll see <code>(.venv)</code> at the beginning of your terminal prompt.</p>
+    </div>
+
+    <h2 id="step-3-install-flet">Step 3: Install Flet</h2>
+    
+    <p>Install Flet with all optional dependencies:</p>
+    
+    <pre><code>uv pip install flet[all]==0.28.3</code></pre>
+    
+    <div class="note">
+        <strong>What this does:</strong> Installs Flet version 0.28.3 with all optional features enabled, giving you access to all Flet widgets and capabilities.
+    </div>
+
+    <h2 id="step-4-create-new-project-optional">Step 4: Create New Project (Optional)</h2>
+    
+    <p>If you don't have an existing project, create a new one:</p>
+    
+    <pre><code>uv run flet create test_app</code></pre>
+    
+    <div class="note">
+        <strong>Replace <code>test_app</code> with your desired project name.</strong>
+    </div>
+    
+    <p><strong>What this does:</strong> Creates a new Flet project with the following structure:</p>
+    
+    <pre><code>test_app/
+├── pyproject.toml          # Project configuration
+├── README.md              # Project documentation
+├── src/
+│   ├── main.py           # Main application file
+│   └── assets/           # Static files (images, etc.)</code></pre>
+
+    <h2 id="step-5-project-setup">Step 5: Project Setup</h2>
+
+    <h3>Navigate to your project directory:</h3>
+    
+    <pre><code>cd test_app</code></pre>
+
+    <h3>Sync dependencies:</h3>
+    
+    <pre><code>uv sync</code></pre>
+    
+    <div class="note">
+        <p><strong>What this does:</strong></p>
+        <ul>
+            <li>Creates a new <code>.venv</code> folder inside your project</li>
+            <li>Installs all dependencies listed in <code>pyproject.toml</code></li>
+            <li>Locks dependency versions in <code>uv.lock</code></li>
+        </ul>
+    </div>
+    
+    <div class="warning">
+        <strong>Important:</strong> Delete any old <code>.venv</code> folders outside your project. Keep only the one created inside your project root.
+    </div>
+
+    <h2 id="step-6-adding-extensions">Step 6: Adding Extensions</h2>
+    
+    <p>Extensions are added by modifying the <code>pyproject.toml</code> file in your project root.</p>
+
+    <h3>Open <code>pyproject.toml</code> and locate the dependencies section:</h3>
+    
+    <pre><code>dependencies = [
+    "flet==0.28.3"
+]</code></pre>
+
+    <h3>Add your extensions to this list</h3>
+
+    <h4>Method 1: From GitHub Repository</h4>
+    
+    <p>For extensions hosted on GitHub, use this format:</p>
+    
+    <pre><code>dependencies = [
+    "flet==0.28.3",
+    "flet-animated-border @ git+https://github.com/Wanna-Pizza/flet-animated-border.git@main"
+]</code></pre>
+    
+    <div class="note">
+        <p><strong>Format explanation:</strong></p>
+        <ul>
+            <li><code>flet-animated-border</code> - The package name</li>
+            <li><code>@ git+</code> - Indicates installation from Git</li>
+            <li><code>https://github.com/Wanna-Pizza/flet-animated-border.git</code> - Repository URL</li>
+            <li><code>@main</code> - Specifies the branch (use <code>@main</code>, <code>@master</code>, or specific tag)</li>
+        </ul>
+    </div>
+
+    <h4>Method 2: From PyPI</h4>
+    
+    <p>For extensions published on PyPI:</p>
+    
+    <pre><code>dependencies = [
+    "flet==0.28.3",
+    "flet-custom-widget==1.2.3"
+]</code></pre>
+
+    <h3>Install the new dependencies:</h3>
+    
+    <pre><code>uv sync</code></pre>
+    
+    <div class="note">
+        <strong>What this does:</strong> Downloads and installs the new extensions and their dependencies.
+    </div>
+
+    <h2 id="step-7-building-and-running">Step 7: Building and Running</h2>
+
+    <h3>Build for your platform:</h3>
+    
+    <p><strong>For macOS:</strong></p>
+    <pre><code>uv run flet build macos -v</code></pre>
+    
+    <p><strong>For Windows:</strong></p>
+    <pre><code>uv run flet build windows -v</code></pre>
+    
+    <p><strong>For Linux:</strong></p>
+    <pre><code>uv run flet build linux -v</code></pre>
+    
+    <div class="note">
+        <p><strong>What this does:</strong></p>
+        <ul>
+            <li>Compiles your app for the specified platform</li>
+            <li>The <code>-v</code> flag provides verbose output for debugging</li>
+            <li><strong>Important:</strong> This step is required to see custom widgets during development</li>
+        </ul>
+    </div>
+
+    <h3>Run your application:</h3>
+    
+    <p><strong>For macOS/Linux:</strong></p>
+    <pre><code>uv run flet run src/main.py</code></pre>
+    
+    <p><strong>For Windows:</strong></p>
+    <pre><code>uv run flet run src\main.py</code></pre>
+    
+    <p><strong>Alternative (hot reload for development):</strong></p>
+    
+    <p><strong>For macOS/Linux:</strong></p>
+    <pre><code>uv run flet -r src/main.py</code></pre>
+    
+    <p><strong>For Windows:</strong></p>
+    <pre><code>uv run flet -r src\main.py</code></pre>
+    
+    <div class="note">
+        <p><strong>What this does:</strong></p>
+        <ul>
+            <li>Runs your Flet application</li>
+            <li>The <code>-r</code> flag enables hot reload (automatically restarts when files change)</li>
+        </ul>
+    </div>
+
+    <h2 id="examples">Examples</h2>
+
+    <h3>Example 1: Adding Multiple Extensions</h3>
+    
+    <pre><code>dependencies = [
+    "flet==0.28.3",
+    "flet-animated-border @ git+https://github.com/Wanna-Pizza/flet-animated-border.git@main",
+    "flet-charts @ git+https://github.com/example/flet-charts.git@v1.0",
+    "flet-widgets==2.1.0"
+]</code></pre>
+
+    <h3>Example 2: Using the Extension in Your Code</h3>
+    
+    <pre><code>import flet as ft
+from flet_animated_border import AnimatedBorder  # Import your extension</code></pre>
+
+    <h3>Example 3: Complete Workflow</h3>
+    
+    <p><strong>For macOS/Linux:</strong></p>
+    <pre><code># 1. Create project
+uv run flet create my_awesome_app
+cd my_awesome_app
+
+# 2. Edit pyproject.toml to add extensions
+# (add your extensions to the dependencies list)
+
+# 3. Install dependencies
+uv sync
+
+# 4. Build for your platform
+uv run flet build macos -v
+
+# 5. Run with hot reload
+uv run flet -r src/main.py</code></pre>
+    
+    <p><strong>For Windows:</strong></p>
+    <pre><code># 1. Create project
+uv run flet create my_awesome_app
+cd my_awesome_app
+
+# 2. Edit pyproject.toml to add extensions
+# (add your extensions to the dependencies list)
+
+# 3. Install dependencies
+uv sync
+
+# 4. Build for your platform
+uv run flet build windows -v
+
+# 5. Run with hot reload
+uv run flet -r src\main.py</code></pre>
+
+    <h2 id="troubleshooting">Troubleshooting</h2>
+
+    <h3>Common Issues and Solutions</h3>
+
+    <h4>Issue: "uv: command not found"</h4>
+    <p><strong>Solution:</strong> UV is not installed. Run <code>pip install uv</code> first.</p>
+
+    <h4>Issue: Virtual environment not activating</h4>
+    <p><strong>Solution:</strong> Make sure you're in the correct directory and using the right command for your OS.</p>
+
+    <h4>Issue: Extension not found after installation</h4>
+    <p><strong>Solutions:</strong></p>
+    <ol>
+        <li>Run <code>uv sync</code> after adding to <code>pyproject.toml</code></li>
+        <li>Make sure you've built the project: <code>uv run flet build [platform] -v</code></li>
+        <li>Check that the extension name is spelled correctly</li>
+    </ol>
+
+    <h4>Issue: Import errors when using extensions</h4>
+    <p><strong>Solutions:</strong></p>
+    <ol>
+        <li>Ensure the extension is properly installed: <code>uv list</code> to see installed packages</li>
+        <li>Check the extension's documentation for correct import syntax</li>
+        <li>Make sure you've built the project for your platform</li>
+    </ol>
+
+    <h4>Issue: Build fails</h4>
+    <p><strong>Solutions:</strong></p>
+    <ol>
+        <li>Check that all dependencies are compatible</li>
+        <li>Try building with verbose output: <code>uv run flet build [platform] -v</code></li>
+        <li>Ensure you have the necessary system dependencies installed</li>
+    </ol>
+
+    <h3>Useful Commands</h3>
+    
+    <pre><code># Check installed packages
+uv list
+
+# Update all dependencies
+uv sync --upgrade
+
+# Remove a dependency
+# (Edit pyproject.toml to remove the line, then run)
+uv sync
+
+# Check UV version
+uv --version</code></pre>
+
+    <h2>Tips for Success</h2>
+    
+    <ol>
+        <li><strong>Always build after adding extensions</strong> - This ensures custom widgets are available during development</li>
+        <li><strong>Use virtual environments</strong> - Keeps your projects isolated and manageable</li>
+        <li><strong>Pin versions</strong> - Specify exact versions in <code>pyproject.toml</code> for reproducible builds</li>
+        <li><strong>Test frequently</strong> - Run your app after each extension addition to catch issues early</li>
+        <li><strong>Read documentation</strong> - Each extension may have specific setup requirements</li>
+    </ol>
+
+    <hr>
+    
+    <p><strong>Congratulations!</strong> You now have a complete understanding of how to add and use user extensions in Flet. Start building amazing applications with the power of community-created widgets!</p>
+
+</body>
+</html>
