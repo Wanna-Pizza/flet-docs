@@ -162,7 +162,36 @@
 
     <h3>Sync dependencies:</h3>
     
+    <p><strong>Option 1: From project directory (recommended):</strong></p>
     <pre><code>uv sync</code></pre>
+    
+    <p><strong>Option 2: Specify path to project directory:</strong></p>
+    <pre><code>uv sync --project /path/to/your/project</code></pre>
+    
+    <p><strong>Examples with absolute paths (full paths):</strong></p>
+    <pre><code># If you're already in the project directory (where pyproject.toml is located)
+uv sync
+
+# Absolute paths (full paths from root)
+uv sync --project /Users/username/Desktop/my_awesome_app
+uv sync --project /home/username/projects/flet_app
+uv sync --project ~/my_flet_projects/test_app
+
+# On Windows (absolute paths)
+uv sync --project C:\Users\username\Desktop\my_awesome_app
+uv sync --project "C:\Program Files\MyProjects\flet_app"</code></pre>
+
+    <p><strong>Examples with relative paths:</strong></p>
+    <pre><code># Relative to current directory
+uv sync --project ./my_project
+uv sync --project ../parent_folder/my_project
+uv sync --project ../../other_projects/flet_app
+
+# Go up one level and into project folder
+uv sync --project ../test_app
+
+# Current directory (same as just 'uv sync')
+uv sync --project .</code></pre>
     
     <div class="note">
         <p><strong>What this does:</strong></p>
@@ -171,10 +200,7 @@
             <li>Installs all dependencies listed in <code>pyproject.toml</code></li>
             <li>Locks dependency versions in <code>uv.lock</code></li>
         </ul>
-    </div>
-    
-    <div class="warning">
-        <strong>Important:</strong> Delete any old <code>.venv</code> folders outside your project. Keep only the one created inside your project root.
+        <p><strong>Important:</strong> The command looks for <code>pyproject.toml</code> in the specified directory. If you don't specify <code>--project</code>, it will look in your current directory.</p>
     </div>
 
     <h2 id="step-6-adding-extensions">Step 6: Adding Extensions</h2>
