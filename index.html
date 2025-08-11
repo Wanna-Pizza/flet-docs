@@ -200,7 +200,9 @@ uv sync --project .</code></pre>
             <li>Installs all dependencies listed in <code>pyproject.toml</code></li>
             <li>Locks dependency versions in <code>uv.lock</code></li>
         </ul>
-        <p><strong>Important:</strong> The command looks for <code>pyproject.toml</code> in the specified directory. If you don't specify <code>--project</code>, it will look in your current directory.</p>
+        <p><strong>Important:</strong> <code>uv sync</code> requires a <code>pyproject.toml</code> file to work. If you run it from a directory without this file, you'll get an error.</p>
+        
+        <p><strong>Virtual environment behavior:</strong> If you run <code>uv sync</code> in a directory that contains <code>pyproject.toml</code> but doesn't have a <code>.venv</code> folder, UV will create a new virtual environment in that directory. This is why it's important to use <code>--project</code> to specify the correct project path, or make sure you're in the right directory to avoid creating unwanted <code>.venv</code> folders.</p>
     </div>
 
     <h2 id="step-6-adding-extensions">Step 6: Adding Extensions</h2>
