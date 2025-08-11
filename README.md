@@ -51,8 +51,8 @@ source .venv/bin/activate
 ```
 
 **For Windows:**
-```bash
-.\.venv\Scripts\activate
+```cmd
+.venv\Scripts\activate
 ```
 
 **What this does:** 
@@ -82,6 +82,7 @@ uv run flet create test_app
 **Replace `test_app` with your desired project name.**
 
 **What this does:** Creates a new Flet project with the following structure:
+
 ```
 test_app/
 ├── pyproject.toml          # Project configuration
@@ -172,7 +173,7 @@ uv run flet build macos -v
 ```
 
 **For Windows:**
-```bash
+```cmd
 uv run flet build windows -v
 ```
 
@@ -194,13 +195,20 @@ uv run flet run src/main.py
 ```
 
 **For Windows:**
-```bash
+```cmd
 uv run flet run src\main.py
 ```
 
 **Alternative (hot reload for development):**
+
+**For macOS/Linux:**
 ```bash
 uv run flet -r src/main.py
+```
+
+**For Windows:**
+```cmd
+uv run flet -r src\main.py
 ```
 
 **What this does:** 
@@ -222,29 +230,14 @@ dependencies = [
 
 ### Example 2: Using the Extension in Your Code
 
-After installing an extension, import and use it in your `src/main.py`:
-
 ```python
 import flet as ft
 from flet_animated_border import AnimatedBorder  # Import your extension
-
-def main(page: ft.Page):
-    page.title = "My App with Extensions"
-    
-    # Use the custom widget
-    animated_widget = AnimatedBorder(
-        content=ft.Text("Hello World!"),
-        border_color="blue",
-        animation_duration=2000
-    )
-    
-    page.add(animated_widget)
-
-ft.app(target=main)
 ```
 
 ### Example 3: Complete Workflow
 
+**For macOS/Linux:**
 ```bash
 # 1. Create project
 uv run flet create my_awesome_app
@@ -261,6 +254,25 @@ uv run flet build macos -v
 
 # 5. Run with hot reload
 uv run flet -r src/main.py
+```
+
+**For Windows:**
+```cmd
+# 1. Create project
+uv run flet create my_awesome_app
+cd my_awesome_app
+
+# 2. Edit pyproject.toml to add extensions
+# (add your extensions to the dependencies list)
+
+# 3. Install dependencies
+uv sync
+
+# 4. Build for your platform
+uv run flet build windows -v
+
+# 5. Run with hot reload
+uv run flet -r src\main.py
 ```
 
 ## Troubleshooting
@@ -304,9 +316,6 @@ uv sync --upgrade
 # (Edit pyproject.toml to remove the line, then run)
 uv sync
 
-# Clean up old builds
-uv run flet clean
-
 # Check UV version
 uv --version
 ```
@@ -318,14 +327,6 @@ uv --version
 3. **Pin versions** - Specify exact versions in `pyproject.toml` for reproducible builds
 4. **Test frequently** - Run your app after each extension addition to catch issues early
 5. **Read documentation** - Each extension may have specific setup requirements
-
-## Next Steps
-
-- Explore the [Flet Gallery](https://flet.dev/gallery) for inspiration
-- Check out community extensions on GitHub
-- Learn to create your own extensions
-- Join the Flet community for support and sharing
-
 ---
 
 **Congratulations!** You now have a complete understanding of how to add and use user extensions in Flet. Start building amazing applications with the power of community-created widgets!
