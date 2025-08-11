@@ -1,0 +1,23 @@
+# Jekyll configuration for GitHub Pages
+title: "Complete Guide: Adding User Extensions to Flet"
+description: "A comprehensive guide for adding custom user extensions to Flet applications"
+theme: minima
+
+# Enable GitHub Flavored Markdown
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Exclude files
+exclude:
+  - .git/
+  - .github/
+  - vendor/
+  - Gemfile
+  - Gemfile.lock
