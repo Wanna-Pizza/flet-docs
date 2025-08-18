@@ -307,7 +307,7 @@ uv run flet -r src\main.py
 
 ```bash
 # Check installed packages
-uv list
+uv pip list
 
 # Update all dependencies
 uv sync --upgrade
